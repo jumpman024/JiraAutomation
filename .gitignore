@@ -1,0 +1,19 @@
+
+# Project Files
+*.log
+/allure-results/
+/.allure/
+/test-output/
+/testUtils-output/
+
+#Intelij files
+/AutomationUI.iml
+/.idea/
+
+#Gradle Files
+/build/
+/.gradle/
+/out/
+
+#Maven Files
+/target/
