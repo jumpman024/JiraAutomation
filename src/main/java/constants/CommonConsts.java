@@ -7,7 +7,7 @@ public final class CommonConsts {
     //auth
     public static final String BASE_URI = "https://mytestproject112.atlassian.net";
     public static final String USERNAME = "jumpman024@gmail.com";
-    public static final String PASSWORD = "Za7CNrbQDsJBMTz24ZLA77B2";
+    public static final String PASSWORD = "1pbDb0NEDuSRuR45yPeK2F92";
 
     //data for issue json generate
     public static String PROJECT_ID = "10000";

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import readProperties.ConfigProvider;
 
 
@@ -13,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 abstract public class BaseSeleniumTest {
     protected WebDriver driver;
 
-    @BeforeEach
+    @BeforeTest
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -24,7 +26,7 @@ abstract public class BaseSeleniumTest {
         BaseSeleniumPage.setDriver(driver);
     }
 
-    @AfterEach
+    @AfterTest
     public void tearDown(){
         driver.close();
         driver.quit();

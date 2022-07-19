@@ -1,7 +1,7 @@
 package ui;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 import readProperties.ConfigProvider;
 import uiUtils.webhelpers.WebHelper;
 import uiUtils.webpages.LoginPage;
