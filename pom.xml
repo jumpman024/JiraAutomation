@@ -49,7 +49,6 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>4.4.0</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -63,13 +62,6 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
-            <scope>test</scope>
-        </dependency>
                 <dependency>
                     <groupId>com.fasterxml.jackson.core</groupId>
                     <artifactId>jackson-annotations</artifactId>
@@ -80,12 +72,6 @@
                     <artifactId>jackson-databind</artifactId>
                     <version>2.9.1</version>
                 </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
-            <scope>compile</scope>
-        </dependency>
                 <dependency>
                     <groupId>io.rest-assured</groupId>
                     <artifactId>json-path</artifactId>
@@ -109,6 +95,11 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
@@ -120,6 +111,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <includes>
                         <include>*/**</include>
@@ -145,12 +143,6 @@
                         <artifactId>aspectjweaver</artifactId>
                         <version>1.9.6</version>
                     </dependency>
-                    <dependency>
-                        <groupId>io.rest-assured</groupId>
-                        <artifactId>rest-assured</artifactId>
-                        <version>4.4.0</version>
-                        <scope>test</scope>
-                    </dependency>
                 </dependencies>
             </plugin>
             <plugin>
@@ -170,217 +162,5 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-
-<!--    <properties>-->
-<!--        <maven.compiler.source>11</maven.compiler.source>-->
-<!--        <maven.compiler.target>11</maven.compiler.target>-->
-<!--    </properties>-->
-<!--    <properties>-->
-<!--        <maven.compiler.source>8</maven.compiler.source>-->
-<!--        <maven.compiler.target>8</maven.compiler.target>-->
-<!--    </properties>-->
-
-<!--    <dependencies>-->
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>rest-assured</artifactId>-->
-<!--            <version>4.4.0</version>-->
-<!--            <scope>test</scope>-->
-<!--            &lt;!&ndash;            <exclusions>&ndash;&gt;-->
-<!--            &lt;!&ndash;                <exclusion>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <artifactId>rest-assured</artifactId>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <groupId>io.rest-assured</groupId>&ndash;&gt;-->
-<!--            &lt;!&ndash;                </exclusion>&ndash;&gt;-->
-<!--            &lt;!&ndash;            </exclusions>&ndash;&gt;-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>json-path</artifactId>-->
-<!--            <version>4.4.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.testng</groupId>-->
-<!--            <artifactId>testng</artifactId>-->
-<!--            <version>6.10</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.googlecode.json-simple</groupId>-->
-<!--            <artifactId>json-simple</artifactId>-->
-<!--            <version>1.1.1</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-databind</artifactId>-->
-<!--            <version>2.9.1</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-annotations</artifactId>-->
-<!--            <version>2.9.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.googlecode.json-simple</groupId>-->
-<!--            <artifactId>json-simple</artifactId>-->
-<!--            <version>1.1.1</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash;        <dependency>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <groupId>io.rest-assured</groupId>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <artifactId>rest-assured</artifactId>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <version>RELEASE</version>&ndash;&gt;-->
-<!--        &lt;!&ndash;        </dependency>&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>log4j</groupId>-->
-<!--            <artifactId>log4j</artifactId>-->
-<!--            <version>1.2.17</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-databind</artifactId>-->
-<!--            <version>2.9.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>rest-assured</artifactId>-->
-<!--            <version>4.4.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.selenium</groupId>-->
-<!--            <artifactId>selenium-api</artifactId>-->
-<!--            <version>3.141.59</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.selenium</groupId>-->
-<!--            <artifactId>selenium-chrome-driver</artifactId>-->
-<!--            <version>3.141.5</version>-->
-<!--        </dependency>-->
-<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;            <groupId>com.typesafe</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;            <artifactId>config</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;            <version>1.4.1</version>&ndash;&gt;-->
-<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.codeborne</groupId>-->
-<!--            <artifactId>selenide</artifactId>-->
-<!--            <version>5.20.3</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.github.bonigarcia</groupId>-->
-<!--            <artifactId>webdrivermanager</artifactId>-->
-<!--            <version>4.4.3</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.selenium</groupId>-->
-<!--            <artifactId>selenium-api</artifactId>-->
-<!--            <version>3.141.59</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.junit.jupiter</groupId>-->
-<!--            <artifactId>junit-jupiter-engine</artifactId>-->
-<!--            <version>5.8.2</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.qameta.allure</groupId>-->
-<!--            <artifactId>allure-junit5</artifactId>-->
-<!--            <version>2.13.1</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>rest-assured</artifactId>-->
-<!--            <version>4.4.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>rest-assured</artifactId>-->
-<!--            <version>4.4.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.junit.jupiter</groupId>-->
-<!--            <artifactId>junit-jupiter-api</artifactId>-->
-<!--            <version>5.8.2</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
-
-<!--&lt;!&ndash;    <build>&ndash;&gt;-->
-<!--&lt;!&ndash;        <plugins>&ndash;&gt;-->
-<!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;                <groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <artifactId>maven-surefire-plugin</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <version>3.0.0-M3</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <testFailureIgnore>true</testFailureIgnore>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <shutdown>kill</shutdown> &lt;!&ndash; Use it if required&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;                <groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <artifactId>maven-failsafe-plugin</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <version>2.22.2</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <includes>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <include>*/**</include>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </includes>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <groups>create</groups>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <testFailureIgnore>false</testFailureIgnore>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <argLine>&ndash;&gt;-->
-<!--&lt;!&ndash;                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.6/aspectjweaver-1.9.6.jar"&ndash;&gt;-->
-<!--&lt;!&ndash;                    </argLine>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <systemProperties>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <property>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <name>junit.jupiter.extensions.autodetection.enabled</name>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <value>true</value>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </property>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </systemProperties>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <systemPropertyVariables>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <allure.results.directory>target/allure-results</allure.results.directory>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </systemPropertyVariables>&ndash;&gt;-->
-<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;                <dependencies>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <groupId>org.aspectj</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <artifactId>aspectjweaver</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <version>1.9.6</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;                </dependencies>&ndash;&gt;-->
-<!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;                <groupId>io.qameta.allure</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <artifactId>allure-maven</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <version>2.10.0</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/2.14.0/allure-2.14.0.zip</allureDownloadUrl>&ndash;&gt;-->
-<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
-
-<!--            &lt;!&ndash;            <plugin>&ndash;&gt;-->
-<!--            &lt;!&ndash;                <groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
-<!--            &lt;!&ndash;                <artifactId>maven-surefire-plugin</artifactId>&ndash;&gt;-->
-<!--            &lt;!&ndash;                <version>2.19.1</version>&ndash;&gt;-->
-<!--            &lt;!&ndash;&lt;!&ndash;                <configuration>&ndash;&gt;&ndash;&gt;-->
-<!--            &lt;!&ndash;&lt;!&ndash;                    <suiteXmlFiles>&ndash;&gt;&ndash;&gt;-->
-<!--            &lt;!&ndash;&lt;!&ndash;                        <suiteXmlFile>testng.xml</suiteXmlFile>&ndash;&gt;&ndash;&gt;-->
-<!--            &lt;!&ndash;&lt;!&ndash;                    </suiteXmlFiles>&ndash;&gt;&ndash;&gt;-->
-<!--            &lt;!&ndash;&lt;!&ndash;                </configuration>&ndash;&gt;&ndash;&gt;-->
-<!--            &lt;!&ndash;            </plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;                <groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <artifactId>maven-compiler-plugin</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <version>3.8.1</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <source>8</source>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <target>8</target>&ndash;&gt;-->
-<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;        </plugins>&ndash;&gt;-->
-<!--&lt;!&ndash;    </build>&ndash;&gt;-->
 
 </project>
