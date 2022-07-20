@@ -19,8 +19,7 @@ abstract public class BaseSeleniumTest {
     @BeforeTest
     public void setUp(){
         WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-        WebDriver driver= new ChromeDriver(new ChromeDriverService.Builder().usingPort(65530).build());
+        driver = new ChromeDriver();
         driver.get(ConfigProvider.URL);
 //        driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
