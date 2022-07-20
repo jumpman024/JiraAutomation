@@ -9,10 +9,10 @@ RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 USER jenkins
 
-## Set Defaults
-#ENV JAVA_OPTS="-Xmx8192m"
-#ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
-#
+# Set Defaults
+ENV JAVA_OPTS="-Xmx8192m"
+ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
+
 #FROM centos:8 AS base
 #
 #RUN useradd -ms /bin/bash tester
@@ -25,6 +25,8 @@ USER jenkins
 #ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
 #    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8" \
 #    DISPLAY=":99"
+#    JAVA_OPTS="-Xmx8192m"
+#    JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
 #COPY src/test/resources/docker/initscript /tmp
 #RUN cat /tmp/initscript >> /home/tester/.bashrc && rm /tmp/initscript
 #WORKDIR /tests
