@@ -1,7 +1,6 @@
 pipeline {
-    agent {
-        any
-    }
+    agent any
+
         tools {
             maven "3.8.1"
         }
