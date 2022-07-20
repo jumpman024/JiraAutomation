@@ -1,7 +1,10 @@
 pipeline {
     agent {
-        label 'docker'
+        any
     }
+        tools {
+            maven "3.8.1"
+        }
 
     parameters {
         choice(choices: ['server1', 'server2'], description: 'select server fo test run', name: 'server')
