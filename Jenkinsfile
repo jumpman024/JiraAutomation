@@ -38,7 +38,7 @@ pipeline {
                     expression { return params.rest }
                 }
                 steps {
-                    sh "mvn -Dtest=rest.** verify"
+                    sh "mvn -Dtest=api.** verify"
                 }
             }
             stage('web tests') {
@@ -51,7 +51,7 @@ pipeline {
     //                         sh "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
     //                         sh "apt install ./google-chrome-stable_current_amd64.deb"
     //                     }
-                        sh "mvn -Dtest=web.simple.** verify"
+                        sh "mvn -Dtest=ui.** verify"
                       }
                  }
             }
