@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import readProperties.ConfigProvider;
@@ -18,7 +19,8 @@ abstract public class BaseSeleniumTest {
     @BeforeTest
     public void setUp(){
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+//        driver = new ChromeDriver();
+        WebDriver driver= new ChromeDriver(new ChromeDriverService.Builder().usingPort(65530).build());
         driver.get(ConfigProvider.URL);
 //        driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
