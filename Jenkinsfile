@@ -3,9 +3,9 @@ pipeline {
          label 'docker'
     }
 
-#        tools {
-#            maven "3.8.1"
-#        }
+//        tools {
+//            maven "3.8.1"
+//        }
 
     parameters {
         choice(choices: ['server1', 'server2'], description: 'select server fo test run', name: 'server')
@@ -15,14 +15,14 @@ pipeline {
 
         stages {
 
-#            stage('rest tests') {
-#                when {
-#                    expression { return params.rest }
-#                }
-#                steps {
-#                    sh "mvn -Dtest=api.** verify"
-#                }
-#            }
+//            stage('rest tests') {
+//                when {
+//                    expression { return params.rest }
+//                }
+//                steps {
+//                    sh "mvn -Dtest=api.** verify"
+//                }
+//            }
             stage('web tests') {
                  when {
                      expression { return params.web }
@@ -35,7 +35,7 @@ pipeline {
     sh "docker build -t test -f src/test/resources/docker/Dockerfile --no-cache --target chrome83 ./"
     sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test mvn -Dtest=ui.** verify"
                          }
-#                        sh "mvn -Dtest=ui.** verify"
+//                        sh "mvn -Dtest=ui.** verify"
                       }
                  }
             }
