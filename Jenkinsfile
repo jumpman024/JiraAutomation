@@ -1,9 +1,11 @@
 pipeline {
-    agent any
+    agent {
+         label 'docker'
+    }
 
-        tools {
-            maven "3.8.1"
-        }
+#        tools {
+#            maven "3.8.1"
+#        }
 
     parameters {
         choice(choices: ['server1', 'server2'], description: 'select server fo test run', name: 'server')
@@ -12,46 +14,28 @@ pipeline {
     }
 
         stages {
-    //         stage('check test server health'){
-    //             steps {
-    //                 sh """
-    //                     attempt_counter=0
-    //                     max_attempts=120
-    //
-    //                     echo "Wait until server response 200"
-    //                     while [[ "\$(curl -s -o /dev/null -w ''%{http_code}'' https://${params.server})" != "200" ]]
-    //                     do
-    //                         if [ \${attempt_counter} -eq \${max_attempts} ];then
-    //                             echo "Max attempts reached"
-    //                             exit 1
-    //                         fi
-    //
-    //                         attempt_counter=\$((\\$attempt_counter+1))
-    //                         echo "wait 5 seconds"
-    //                         sleep 5
-    //                     done
-    //                 """
-    //             }
-    //         }
-            stage('rest tests') {
-                when {
-                    expression { return params.rest }
-                }
-                steps {
-                    sh "mvn -Dtest=api.** verify"
-                }
-            }
+
+#            stage('rest tests') {
+#                when {
+#                    expression { return params.rest }
+#                }
+#                steps {
+#                    sh "mvn -Dtest=api.** verify"
+#                }
+#            }
             stage('web tests') {
                  when {
                      expression { return params.web }
                  }
                  steps {
                       script{
-    //                     if(!fileExists('google-chrome-stable_current_amd64.deb')){
-    //                         sh "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-    //                         sh "apt install ./google-chrome-stable_current_amd64.deb"
-    //                     }
-                        sh "mvn -Dtest=ui.** verify"
+    sh "docker build -t test -f src/test/resources/docker/Dockerfile --target chromelast ./"
+    sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test mvn -Dtest=ui.** verify"
+
+    sh "docker build -t test -f src/test/resources/docker/Dockerfile --no-cache --target chrome83 ./"
+    sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test mvn -Dtest=ui.** verify"
+                         }
+#                        sh "mvn -Dtest=ui.** verify"
                       }
                  }
             }

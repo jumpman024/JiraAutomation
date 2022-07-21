@@ -21,7 +21,7 @@ ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  
 #    && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-* \
 #    && yum -y install java-1.8.0-openjdk-devel wget unzip xorg-x11-server-Xvfb xdpyinfo \
 #    && mkdir /driver
-#
+
 #ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
 #    JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8" \
 #    DISPLAY=":99"
