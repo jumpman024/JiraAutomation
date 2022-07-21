@@ -1,11 +1,7 @@
 pipeline {
     agent {
-         label 'docker'
+        label 'docker'
     }
-
-//        tools {
-//            maven "3.8.1"
-//        }
 
     parameters {
         choice(choices: ['server1', 'server2'], description: 'select server fo test run', name: 'server')
@@ -13,39 +9,74 @@ pipeline {
         booleanParam(defaultValue: false, description: 'run web tests', name: 'web')
     }
 
-        stages {
+    stages {
+//         stage('rest tests') {
+//             when {
+//                 expression { return params.rest }
+//             }
+//             steps {
+//                 sh "mvn -Dtest=rest.** verify"
+//             }
+//         }
 
-//            stage('rest tests') {
-//                when {
-//                    expression { return params.rest }
-//                }
-//                steps {
-//                    sh "mvn -Dtest=api.** verify"
-//                }
-//            }
-            stage('web tests') {
-                 when {
-                     expression { return params.web }
-                 }
-                 steps {
-                      script{
-    sh "docker build -t test -f src/test/resources/docker/Dockerfile --target chromelast ./"
-    sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test mvn -Dtest=ui.** verify"
-
-    sh "docker build -t test -f src/test/resources/docker/Dockerfile --no-cache --target chrome83 ./"
-    sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test mvn -Dtest=ui.** verify"
+        stage('web tests') {
+             when {
+                 expression { return params.web }
+             }
+             parallel {
+                stage('chrome last'){
+                    agent {
+                        node {
+                            label 'docker'
+                            customWorkspace "workspace/chrome83"
+                        }
+                    }
+                     steps {
+                          script{
+                            sh "docker build -t test -f src/test/resources/docker/Dockerfile --target chromelast ./"
+                            sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test  mvn -Dtest=ui.** verify"
+                          }
+                     }
+                     post {
+                           always {
+                              allure([
+                                   reportBuildPolicy: 'ALWAYS',
+                                   results: [[path: 'target/allure-results']]
+                              ])
+                          }
+                     }
+                }
+                stage('chrome 83') {
+                    agent {
+                         node {
+                            label 'docker'
+                            customWorkspace "workspace/chromelast"
                          }
-//                        sh "mvn -Dtest=ui.** verify"
-                      }
-                 }
-            }
-        }
-        post {
-            always {
-                allure([
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target/allure-results']]
-                ])
-            }
+                    }
+                    steps {
+                        script {
+                            sh "docker build -t test -f src/test/resources/docker/Dockerfile --no-cache --target chrome83 ./"
+                            sh "docker run -v `pwd`:/tests --privileged --shm-size='4g' --rm test  mvn -Dtest=ui.** verify"
+                        }
+                    }
+                    post {
+                            always {
+                                allure([
+                                    reportBuildPolicy: 'ALWAYS',
+                                    results: [[path: 'target/allure-results']]
+                                ])
+                            }
+                    }
+                }
+             }
         }
     }
+//     post {
+//         always {
+//             allure([
+//                 reportBuildPolicy: 'ALWAYS',
+//                 results: [[path: 'allure-results']]
+//             ])
+//         }
+//     }
+}
