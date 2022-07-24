@@ -1,6 +1,9 @@
 package ui;
 
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import readProperties.ConfigProvider;
 import uiUtils.webhelpers.WebHelper;
@@ -21,7 +24,7 @@ public class JiraTest extends BaseSeleniumTest {
                 .openJiraProjectsPage()
                 .clickOnCreateIssueButton()
                 .createIssue(summary,description);
-        Assertions.assertTrue(WebHelper.searchForCreatedIssue(issueId));
+//        Assertions.assertTrue(WebHelper.searchForCreatedIssue(issueId));
     }
 
     @Test
@@ -32,6 +35,7 @@ public class JiraTest extends BaseSeleniumTest {
                 .deleteIssue();
         Assertions.assertFalse(WebHelper.searchForCreatedIssue(issueId));
     }
+
 
 
 }
