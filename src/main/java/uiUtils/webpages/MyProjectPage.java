@@ -31,8 +31,6 @@ public class MyProjectPage extends BaseSeleniumPage {
     @FindBy(xpath = "//div[@data-testid='jira-issue-create.modal.create-form.success-flag']")
     private WebElement confirmationWindow;
 
-    @FindBy(xpath = "//input[@data-test-id='search-dialog-input']")
-    private WebElement searchBar;
 
 
     public MyProjectPage() {
@@ -58,15 +56,6 @@ public class MyProjectPage extends BaseSeleniumPage {
         return issueId.substring(issueId.indexOf("\"") + 1, issueId.lastIndexOf("\""));
     }
 
-    public IssuePage findIssue(String issueId) {
-        if(issueId == null){
-            throw new IllegalArgumentException("Issue with such ID doesn't exist in Jira");
-        }
-        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@data-test-id='search-dialog-input']")))
-        .sendKeys(issueId);
-        searchBar.sendKeys(Keys.ENTER);
-        return new IssuePage();
-    }
 
 }
 

@@ -33,35 +33,36 @@ abstract public class BaseSeleniumTest {
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         capabilities.setCapability("videoName", "new_video.mp4");
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
         // execute tests in browser local
-        driver.get(ConfigProvider.URL);
-        System.out.println(driver.getTitle());
-        driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-//        try {
-//            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),
-//                    capabilities);
-//            driver.get(ConfigProvider.URL);
-//            System.out.println(driver.getTitle());
-//                    driver = new ChromeDriver();
-//            driver.manage().window().maximize();
-//            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-//            driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-//            BaseSeleniumPage.setDriver(driver);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
+//        driver.get(ConfigProvider.URL);
+//        System.out.println(driver.getTitle());
+//        driver.manage().window().maximize();
+//        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+//        BaseSeleniumPage.setDriver(driver);
+        // end of exec
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),
+                    capabilities);
+            driver.get(ConfigProvider.URL);
+            System.out.println(driver.getTitle());
+            driver.manage().window().maximize();
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+            BaseSeleniumPage.setDriver(driver);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
     @AfterMethod
     public void tearDown() {
-//        driver.close();
-//        driver.quit();
+        driver.close();
+        driver.quit();
     }
 
 

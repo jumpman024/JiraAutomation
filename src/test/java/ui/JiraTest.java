@@ -28,9 +28,8 @@ public class JiraTest extends BaseSeleniumTest {
     }
 
     @Test
-    public void _2_deleteIssue() {
+    public void _2_deleteIssue() throws InterruptedException {
         new LoginPage().auth(ConfigProvider.ADMIN_LOGIN,ConfigProvider.ADMIN_PASSWORD)
-                .openJiraProjectsPage()
                 .findIssue(issueId)
                 .deleteIssue();
         Assertions.assertFalse(WebHelper.searchForCreatedIssue(issueId));
