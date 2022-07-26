@@ -1,38 +1,43 @@
 package uiUtils.core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 import readProperties.ConfigProvider;
 
 
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 abstract public class BaseSeleniumTest {
     public WebDriver driver;
 
 
+    @Parameters({"browser"})
     @BeforeMethod
-    public void setUp() throws MalformedURLException {
+    public void setUp(String browser,Method name) throws MalformedURLException {
+        String methodName = name.getName();
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome");
-        capabilities.setVersion("103.0");
-//        capabilities.setPlatform(Platform.LINUX);
+        capabilities.setCapability("name",methodName);
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
-        capabilities.setCapability("videoName", "new_video.mp4");
+        capabilities.setCapability("videoName", "video_"+ methodName
+                + new SimpleDateFormat("dd.MM.yyyy_HH.mm'min'.ss'sec'").format(new Date()) + ".mp4");
+        if(browser.equalsIgnoreCase("firefox")){
+            capabilities.setBrowserName("firefox");
+            capabilities.setVersion("102.0");
+            WebDriverManager.firefoxdriver().setup();
+        } else if (browser.equalsIgnoreCase("chrome")){
+            capabilities.setBrowserName("chrome");
+            capabilities.setVersion("103.0");
+            WebDriverManager.chromedriver().setup();
+        }
         // execute tests in browser local
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();
@@ -49,8 +54,8 @@ abstract public class BaseSeleniumTest {
             driver.get(ConfigProvider.URL);
             System.out.println(driver.getTitle());
             driver.manage().window().maximize();
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-            driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             BaseSeleniumPage.setDriver(driver);
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -61,7 +66,7 @@ abstract public class BaseSeleniumTest {
 
     @AfterMethod
     public void tearDown() {
-        driver.close();
+//        driver.close();
         driver.quit();
     }
 
@@ -112,4 +117,4 @@ abstract public class BaseSeleniumTest {
 //        };
 //    }
 
-    }
+}

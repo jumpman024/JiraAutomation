@@ -1,10 +1,8 @@
 package uiUtils.webpages;
 
 import com.codeborne.selenide.ex.ElementNotFound;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,20 +37,19 @@ public class MyProjectPage extends BaseSeleniumPage {
 
     public MyProjectPage clickOnCreateIssueButton() throws InterruptedException {
         Thread.sleep(5000);
-        WebDriverWait wait = new WebDriverWait(driver, 20, 20);
-        wait.until(ExpectedConditions.visibilityOf(createButton));
-        createButton.click();
-        System.out.println(createButton.getText());
+        Actions actions = new Actions(driver);
+        actions.moveToElement(createButton).click().build().perform();
+//        createButton.click();
         return this;
     }
 
     public String createIssue(String issueSummary, String issueDescription) {
-        summary.sendKeys(issueSummary);
-        description.click();
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(summary)).sendKeys(issueSummary);
+        wait.until(ExpectedConditions.elementToBeClickable(description)).click();
         description.sendKeys(issueDescription);
         createIssueButton.click();
-        String issueId = new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(confirmationWindow))
-                .getText();
+        String issueId = wait.until(ExpectedConditions.visibilityOf(confirmationWindow)).getText();
         return issueId.substring(issueId.indexOf("\"") + 1, issueId.lastIndexOf("\""));
     }
 

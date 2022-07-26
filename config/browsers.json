@@ -13,8 +13,21 @@
         "path": "/"
       }
     }
+  },
+  "firefox": {
+    "default": "102.0",
+    "versions": {
+      "102.0": {
+        "image": "selenoid/vnc_firefox:102.0",
+        "port": "4444",
+        "path": "/wd/hub"
+      }
+    }
   }
 }
+
+
+
 
 
 

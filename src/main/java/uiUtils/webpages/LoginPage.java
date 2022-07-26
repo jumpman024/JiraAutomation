@@ -4,6 +4,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import uiUtils.core.BaseSeleniumPage;
 
 public class LoginPage extends BaseSeleniumPage {
@@ -23,7 +25,8 @@ public class LoginPage extends BaseSeleniumPage {
 
     public MainPage auth(String login, String password){
         loginField.sendKeys(login,Keys.ENTER);
-        passwordField.sendKeys(password, Keys.ENTER);
+        new WebDriverWait(driver,20).until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(password);
+        passwordField.sendKeys(Keys.ENTER);
         return new MainPage();
     }
 
